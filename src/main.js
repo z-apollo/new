@@ -12,6 +12,7 @@ import axios from "axios";
 import App from "@/App";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
+import {Toast} from "vant";
 
 // 在.vue文件中要使用router-link或者router-view.需要注册下插件
 Vue.use(VueRouter);
@@ -30,8 +31,16 @@ const routes = [
 
 // 路由：3.创建对象
 const router = new VueRouter({
-    routes
+    routes,
 });
+//响应拦截器
+axios.interceptors.response.use(res=>{
+    const{message,statusCode} =res.data
+    if(statusCode ===401){
+        Toast.fail(message)
+    }
+    return res
+})
 
 new Vue({
     el: "#app",

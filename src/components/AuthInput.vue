@@ -9,7 +9,7 @@
     :class="{
       success: status === 'success',
       error: status === 'error'
-  }"
+    }"
     @change="handleChange"
   />
 </template>
