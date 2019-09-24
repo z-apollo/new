@@ -9,10 +9,12 @@ import Vant from 'vant';
 import axios from "axios";
 
 // 导入组件
+import {Toast} from "vant";
 import App from "@/App";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
-import {Toast} from "vant";
+import Personal from "@/pages/Personal";
+
 
 // 在.vue文件中要使用router-link或者router-view.需要注册下插件
 Vue.use(VueRouter);
@@ -26,14 +28,15 @@ axios.defaults.baseURL = "http://localhost:3000";
 // 路由：2.创建路由配置
 const routes = [
     { path: "/login", component: Login},
-    { path: "/register", component: Register}
+    { path: "/register", component: Register},
+    { path: "/personal", component: Personal}
 ]
 
 // 路由：3.创建对象
 const router = new VueRouter({
     routes,
 });
-//响应拦截器
+//响应拦截器 拦截响应信息
 axios.interceptors.response.use(res=>{
     const{message,statusCode} =res.data
     if(statusCode ===401){
