@@ -81,7 +81,7 @@ export default {
             this.profile = data;
             //如果用户有头像
             if(data.head_img){
-                this.profile.head_img = this.$axios.defaults.baseURL + this.profile.head_img;
+                this.profile.head_img = this.$axios.defaults.baseURL + data.head_img;
             }else{
                 this.profile.head_img = "./static/man.png";
             }
