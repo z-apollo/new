@@ -82,10 +82,13 @@ export default {
             }).then( res=>{
                 //登录成功，则跳转页面
                 // console.log(res.data)
-                const{message} = res.data;
+                const{message, data} = res.data;
+
                 if(message === "登录成功"){
-                    //跳转到首页，先用/代替
-                    this.$router.push("/")
+                    localStorage.setItem("token", data.token);
+                    localStorage.setItem("user_id", data.user.id);
+                    //跳转到个人中心
+                    this.$router.push("/personal")
                 }
             } )
         },
