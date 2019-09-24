@@ -3,7 +3,8 @@
     <div class="profile">
       <!-- <img src="http://pic2.zhimg.com/50/v2-f34145b01ab1d5bb463cac35ddc9777d_hd.jpg" alt /> -->
       <!-- $axios.defaults.baseURL读取axios的服务器路径 -->
-      <img :src="$axios.defaults.baseURL + profile.head_img" alt="">
+      <!-- <img :src="$axios.defaults.baseURL + profile.head_img" alt=""> -->
+      <img :src="profile.head_img" alt="">
 
       <div class="profile-center">
         <div class="name">
@@ -57,6 +58,14 @@ export default {
         const{data} = res.data;
         //保存到data
         this.profile = data;
+
+        //如果用户有头像
+        if(data.head_img){
+            this.profile.head_img = this.$axios.defaults.baseURL + this.profile.head_img;
+        }else{
+            this.profile.head_img = "./static/man.png";
+        }
+
     });
   }
 };
