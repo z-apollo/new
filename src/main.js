@@ -71,7 +71,13 @@ axios.interceptors.response.use(res => {
     if (statusCode === 401) {
         Toast.fail(message)
     }
-    return res
+    //token过期了，或者token无效，一般引起的原因可能是token被清空或者密码被修改
+    if(message === "用户信息验证失败"){
+        //跳转到登录
+        router.push('/login')
+    }
+    //必须要返回res
+    return res;
 })
 
 new Vue({

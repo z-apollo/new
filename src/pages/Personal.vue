@@ -60,10 +60,20 @@ export default {
         this.profile = data;
 
         //如果用户有头像
-        if(data.head_img){
-            this.profile.head_img = this.$axios.defaults.baseURL + this.profile.head_img;
-        }else{
-            this.profile.head_img = "./static/man.png";
+        // if(data.head_img){
+        //     this.profile.head_img = this.$axios.defaults.baseURL + this.profile.head_img;
+        // }else{
+        //     this.profile.head_img = "./static/man.png";
+        // }
+        if(data){
+            //保存到data
+            this.profile = data;
+            //如果用户有头像
+            if(data.head_img){
+                this.profile.head_img = this.$axios.defaults.baseURL + this.profile.head_img;
+            }else{
+                this.profile.head_img = "./static/man.png";
+            }
         }
 
     });
