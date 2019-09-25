@@ -37,7 +37,27 @@
         <van-field :value="profile.password" placeholder="请输入密码" ref="password"/>
     </van-dialog>
 
-    <CellBar label="性别" :text="profile.gender === 1? '男' : '女'" />
+    <CellBar label="性别" :text="profile.gender === 1 ? '男' : '女'" @click="show3 = !show3"/>
+    
+    <!-- 性别编辑输入框 -->
+    <van-dialog
+        v-model="show3"
+        title="编辑性别"
+        show-cancel-button
+        @confirm="handlGender"
+        >
+        <van-radio-group v-model="genderCache">
+            <van-cell-group>
+                <van-cell title="男" clickable @click="genderCache = `1`">
+                    <van-radio slot="right-icon" name="1" />
+                </van-cell>
+                <van-cell title="女" clickable @click="genderCache = `0`">
+                    <van-radio slot="right-icon" name="0" />
+                </van-cell>
+            </van-cell-group>
+        </van-radio-group>
+    </van-dialog>
+
   </div>
 </template>
 
@@ -56,6 +76,10 @@ export default {
       show1: false,
       //密码弹窗
       show2: false,
+      //显示性别的弹窗
+      show3: false,
+
+      genderCache: `1`,
     };
   },
 
@@ -113,24 +137,6 @@ export default {
         //替换用户资料的头像
         this.profile.head_img = this.$axios.defaults.baseURL + data.url;
 
-        // 把头像url上传到用户资料
-        // this.$axios({
-        //   url: `/user_update/` + localStorage.getItem("user_id"),
-        //   method: "post",
-        //   // 添加头信息
-        //   headers: {
-        //     Authorization: localStorage.getItem("token")
-        //   },
-        //   data: {
-        //     head_img: data.url
-        //   }
-        // }).then(res => {
-        //   const { message } = res.data;
-        //   // 成功的弹窗提示
-        //   if (message === "修改成功") {
-        //     this.$toast.success(message);
-        //   }
-        // });
         this.editProfile({ head_img: data.url});
       });
     },
@@ -138,27 +144,8 @@ export default {
     handlNickname(){
         // 拿到input输入框的值
         const value = this.$refs.nickname.$refs.input.value;
+
         // 提交到编辑资料的接口
-        // this.$axios({
-        //     url: `/user_update/` + localStorage.getItem("user_id"),
-        //     method: 'POST',
-        //     // 添加头信息
-        //     headers: {
-        //         Authorization: localStorage.getItem("token")
-        //     },
-        //     data: {
-        //         nickname: value
-        //     }
-        // }).then(res => {
-        //     const {message} = res.data;
-        //     // 成功的弹窗提示
-        //     if(message === '修改成功'){
-                
-        //         // 替换profile的昵称
-        //         this.profile.nickname = value;
-        //         this.$toast.success(message);
-        //     }
-        // })
          this.editProfile({ nickname: value}, () => {
             this.profile.nickname = value;
         });
@@ -171,6 +158,10 @@ export default {
         this.editProfile({ password: value}, () => {
             this.profile.password = value;
         });
+    },
+    // 编辑性别
+    handlGender(){
+        console.log()
     }
 
   },
@@ -189,6 +180,10 @@ export default {
       if (data) {
         //保存到data
         this.profile = data;
+
+        //把后台返回的性别复制genderCache,性别需要转换成字符串
+        this.genderCache = String(data.gender);
+
         //如果用户有头像
         if (data.head_img) {
           this.profile.head_img = this.$axios.defaults.baseURL + data.head_img;
