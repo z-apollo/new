@@ -1,22 +1,23 @@
 <template>
   <div>
-    <div class="profile">
-      <!-- <img src="http://pic2.zhimg.com/50/v2-f34145b01ab1d5bb463cac35ddc9777d_hd.jpg" alt /> -->
-      <!-- $axios.defaults.baseURL读取axios的服务器路径 -->
-      <!-- <img :src="$axios.defaults.baseURL + profile.head_img" alt=""> -->
-      <img :src="profile.head_img" alt="">
+    <router-link to="/edit_profile">
+      <div class="profile">
+        <!-- <img src="http://pic2.zhimg.com/50/v2-f34145b01ab1d5bb463cac35ddc9777d_hd.jpg" alt /> -->
+        <!-- $axios.defaults.baseURL读取axios的服务器路径 -->
+        <!-- <img :src="$axios.defaults.baseURL + profile.head_img" alt=""> -->
+        <img :src="profile.head_img" alt="">
 
-      <div class="profile-center">
-        <div class="name">
-          <span class="iconfont iconxingbienan"></span>
-          <!-- 火星网友 -->
-          {{profile.nickname}}
+        <div class="profile-center">
+          <div class="name">
+            <span class="iconfont iconxingbienan"></span>
+            <!-- 火星网友 -->
+            {{profile.nickname}}
+          </div>
+          <div class="time">2019.10.1</div>
         </div>
-        <div class="time">2019.10.1</div>
+        <span class="iconfont iconjiantou1"></span>
       </div>
-
-      <span class="iconfont iconjiantou1"></span>
-    </div>
+    </router-link>
 
     <!-- 调用条形组件 -->
     <CellBar label="我的关注" text="关注的用户" />
@@ -52,6 +53,7 @@ export default {
         localStorage.removeItem("token");
         localStorage.removeItem("user_id");
         //replace替换上一个页面
+        //replace和push的区别在于push会把新的路由添加到最后一位，而replace会替换最后的路由。
         this.$router.replace("/login");
       }
   },

@@ -8,14 +8,12 @@ import Vant from 'vant';
 import axios from "axios";
 
 // 导入组件
-import {
-    Toast
-} from "vant";
+import {Toast} from "vant";
 import App from "@/App";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Personal from "@/pages/Personal";
-
+import EditProfile from "@/pages/EditProfile"
 
 // 在.vue文件中要使用router-link或者router-view.需要注册下插件
 Vue.use(VueRouter);
@@ -30,7 +28,8 @@ axios.defaults.baseURL = "http://localhost:3000";
 const routes = [
     {path: "/login", component: Login},
     {path: "/register", component: Register},
-    {path: "/personal", component: Personal}
+    {path: "/personal", component: Personal},
+    {path: "/edit_profile", component: EditProfile},
 ]
 
 // 路由：3.创建对象
@@ -38,23 +37,25 @@ const router = new VueRouter({
     routes,
 });
 
-//路由守卫：就是一页面跳转之前的拦截器
-//to：要跳转之后的页面，去哪里
-//from：跳转之前的页面，来自哪里
-//next：必须要调用next()。调用才会执行跳转，还可以重定向，next("/login")
+//路由守卫：可以理解为页面跳转之前的拦截手段，可以在拦截时判断验证用户信息，再决定是否允许用户跳转到该页面。
+//to：表示要跳转到哪个页面
+//from：表示从哪个页面跳转过来
+//next：是一个函数，必须要调用才能跳转到下一个页面，不调用则不跳转
+//next()：表示正常跳转到下一页
+//next("/login")：表示重定向到指定的页面
 router.beforeEach((to, from, next) => {
     // 是否有token
     const hasToken = localStorage.getItem("token");
 
     // 判断是否是需要登陆权限的页面
-    if (to.path === "/personal") {
+    if (to.path === "/personal" || to.path === "/edit_profile") {
 
         // 判断本地是否有token
         if (hasToken) {
-            // 正常跳转
+            //表示正常跳转到下一页
             next();
         } else {
-            // 没有token正常跳转到登录
+            //表示重定向到指定的页面，没有token正常跳转到登录
             next("/login")
         }
 
@@ -72,6 +73,7 @@ axios.interceptors.response.use(res => {
         Toast.fail(message)
     }
     //token过期了，或者token无效，一般引起的原因可能是token被清空或者密码被修改
+    //token过期后接口会返回{message:"用户信息验证失败", statusCode:401}
     if(message === "用户信息验证失败"){
         //跳转到登录
         router.push('/login')
