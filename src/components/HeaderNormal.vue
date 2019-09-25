@@ -15,7 +15,7 @@ export default {
 <style scoped lang="less">
 .header{
     display: flex;
-    height: 60 / 360 *100 vw;
+    height: 60 / 360 * 100vw;
     justify-content: space-between;
     align-items: center;
 
