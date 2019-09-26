@@ -23,20 +23,32 @@
       <van-tab 
       v-for="index in 8" 
       :key="index"
-      :title="'标签 ' + index">内容 {{ index }}</van-tab
+      :title="'标签 ' + index"
       >
-        <p v-for="index in 100">内容{{ index }}</p>
+
+        <p v-for="index in 10">
+            <!-- 调用文章列表模块组件 -->
+            <PostCard/>
+        </p>
+      </van-tab> 
     </van-tabs>
   </div>
 
 </template>
 
 <script>
+//引入文章列表模块
+import PostCard from "@/components/PostCard"
+
 export default {
     data(){
         return{
             active: 1
         }
+    },
+    //注册组件
+    components:{
+        PostCard
     }
 };
 </script>
