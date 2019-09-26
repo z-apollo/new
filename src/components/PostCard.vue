@@ -4,17 +4,16 @@
       <!-- 左侧文字 -->
       <div class="card-left">
           <div class="post-title">
-            火星时报火星时报火星时报火星时报火星时报火星时报火星时报火星时报
-            火星时报火星时报火星时报火星时报火星时报火星时报火星时报火星时报
+              {{post.title}}
           </div>
           <p class="post-info">
-              <span>火星时报</span>
-              <span>100跟帖</span>
+              <span>{{post.user.nickname}}</span>
+              <span>{{post.comment_length}}跟帖</span>
           </p>
       </div>
       <!-- 右侧图片 -->
       <div class="card-img">
-        <img src="http://img3.imgtn.bdimg.com/it/u=3414414030,1436910499&fm=11&gp=0.jpg" alt="">
+        <img :src="post.cover[0].url" alt="">
       </div>
   </div>
 
@@ -22,7 +21,7 @@
 
 <script>
 export default {
-
+    props: ['post']
 }
 </script>
 
@@ -35,6 +34,10 @@ export default {
         border-bottom: 1px solid #ccc;
     }
     .card-left{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 80 / 360 * 100vw;
         flex: 1;
         .post-title{
             display: -webkit-box;
