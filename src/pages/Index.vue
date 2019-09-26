@@ -74,4 +74,11 @@ export default {
     font-size: 20 / 360 * 100vw;
   }
 }
+
+/deep/.van-tabs__nav{
+    background:#f6f6f6;
+}
+/deep/.van-tabs__line{
+    height: 1px;
+}
 </style>
