@@ -12,7 +12,6 @@
 
     <!-- 调用条形组件 -->
     <CellBar label="昵称" :text="profile.nickname" @click="show1 = !show1"/>
-
     <!-- 昵称编辑输入框 -->
     <!-- 鼠标放到属性上就可以查看 -->
     <van-dialog
@@ -38,7 +37,6 @@
     </van-dialog>
 
     <CellBar label="性别" :text="profile.gender === 1 ? '男' : '女'" @click="show3 = !show3"/>
-    
     <!-- 性别编辑输入框 -->
     <van-dialog
         v-model="show3"
@@ -141,7 +139,7 @@ export default {
         this.editProfile({ head_img: data.url});
       });
     },
-        // 编辑昵称
+    // 编辑昵称
     handlNickname(){
         // 拿到input输入框的值
         const value = this.$refs.nickname.$refs.input.value;
@@ -151,7 +149,7 @@ export default {
             this.profile.nickname = value;
         });
     },
-    // 编辑昵称
+    // 编辑密码
     handlPassword(){
         // 拿到input输入框的值
         const value = this.$refs.password.$refs.input.value;
@@ -165,7 +163,6 @@ export default {
         //把性别转换为数字
         const gender = +this.genderCache;
 
-        //编辑性别
         this.editProfile({gender},()=>{
             //修改成功之后替换页面显示的性别
             this.profile.gender = gender;
