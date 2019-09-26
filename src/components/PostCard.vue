@@ -33,6 +33,10 @@
       <div class="post-title">{{post.title}}</div>
       <div class="video">
         <img :src="post.cover[0].url" alt />
+        <!-- 中间播放按钮 -->
+        <span class="video-layer">
+          <i class="iconfont iconshipin"></i>
+        </span>
       </div>
       <p class="post-info">
         <span>{{post.user.nickname}}</span>
@@ -127,11 +131,30 @@ export default {
     overflow: hidden;
   }
   .video {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 5px;
     img {
       display: block;
       width: 100%;
       height: 170 / 360 * 100 vw;
+    }
+    .video-layer{
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.5);
+      width:50 / 360 * 100vw;
+      height:50 / 360 * 100vw;
+      border-radius: 50%;
+      flex-shrink: 0;
+      i{
+        color: #fff;
+        font-size: 30px;
+      }
     }
   }
   .post-info {
