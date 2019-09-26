@@ -133,8 +133,19 @@ export default {
         .then(res=>{
             // console.log(res)
             const {data} = res.data;
+            const newData = [];
+            // 循环给栏目中每一项都添加四个独立的属性
+            data.forEach(v => {
+                v.posts = [];
+                v.loading = false;
+                v.finished = false;
+                v.pageIndex = 1;
+                newData.push(v);
+            })
+
             //保存栏目列表
-            this.categories = data;
+            this.categories = newData;
+            console.log(this.categories)
         })
 
         //请求文章列表
