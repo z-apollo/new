@@ -61,7 +61,7 @@ export default {
         active(){
             this.cid = this.categories[this.active].id;
             // console.log(this.active) 0 1 2 3 ...
-            console.log(this.cid)
+            console.log('cid=' + this.cid)
         }
     },
     //注册组件
