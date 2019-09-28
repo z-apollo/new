@@ -6,11 +6,16 @@
       <input type="text" placeholder="写跟帖" @focus="handleFocus" />
 
       <span class="comment">
-        <em>999+</em>
+        <em>{{post.comment_length}}</em>
         <i class="iconfont iconpinglun-"></i>
       </span>
 
-      <i class="iconfont iconshoucang"></i>
+      <!-- 收藏 -->
+      <i
+      class="iconfont iconshoucang"
+      :class="{ star_active: post.has_star }"
+      @click="$emit('handleStar')"
+      ></i>
 
       <i class="iconfont iconfenxiang"></i>
     </div>
@@ -32,6 +37,8 @@ export default {
       isFocus: false
     };
   },
+
+  props:["post"],
 
   methods: {
     // 获得焦点时候触发
@@ -85,6 +92,9 @@ export default {
         .iconfont{
             font-size: 20px;
         }
+        .star_active{
+            color: red;
+        }
     }
     .footer-comment{
         display: flex;
@@ -109,7 +119,6 @@ export default {
             color: #fff;
             text-align: center;
             border-radius: 50px;
-            
         }
     }
 </style>
