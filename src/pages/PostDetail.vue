@@ -9,7 +9,7 @@
         </div>
 
         <span class="focus" v-if="!detail.has_follow" @click="handleFollow">关注</span>
-        <span class="focus focus_active" v-else>已关注</span>
+        <span class="focus focus_active" v-else @click="handleUnfollow">已关注</span>
       </div>
 
       <h3>{{detail.title}}</h3>
@@ -20,9 +20,10 @@
     </div>
 
     <div class="post-btns">
-      <span>
+      <!-- 点赞 -->
+      <span  @click="handleLike" :class="{like_active: detail.has_like}">
         <i class="iconfont icondianzan"></i>
-        99
+        <i>99</i>
       </span>
       <span>
         <i class="iconfont iconweixin"></i>
@@ -68,6 +69,44 @@ export default {
                 if(message === "关注成功"){
                     //修改关注的按钮的状态
                     this.detail.has_follow = true;
+                    this.$toast.success(message)
+                }
+            })
+        },
+        //取消关注
+        handleUnfollow(){
+            //通过作者id取消关注
+            this.$axios({
+                url:"/user_unfollow/" + this.detail.user.id,
+                //添加头信息
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            }).then(res =>{
+                const {message} =res.data;
+
+                if(message === "取消关注成功"){
+                    //修改关注的按钮的状态
+                    this.detail.has_follow = false;
+                    this.$toast.success(message)
+                }
+            })
+        },
+
+        //点赞
+        handleLike(){
+            //通过作者id关注用户
+            this.$axios({
+                url: "/post_like/" + this.detail.id,
+                // 添加头信息
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            }).then(res =>{
+                const {message} = res.data;
+                if(message === "点赞成功"){
+                    // 修改关注的按钮的状态
+                    this.detail.has_like = true;
                     this.$toast.success(message)
                 }
             })
@@ -165,6 +204,12 @@ export default {
   }
   .iconweixin {
     color: #07c907;
+  }
+  .like_active{
+      border:1px solid red;
+      i{
+          color: red;
+      }
   }
 }
 </style>
