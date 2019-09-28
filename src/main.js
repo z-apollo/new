@@ -17,6 +17,8 @@ import EditProfile from "@/pages/EditProfile";
 import UserFollow from "@/pages/UserFollow";
 import UserComment from "@/pages/UserComment";
 import Index from "@/pages/Index";
+import PostDetail from "@/pages/PostDetail";
+
 
 // 在.vue文件中要使用router-link或者router-view.需要注册下插件
 Vue.use(VueRouter);
@@ -33,9 +35,10 @@ const routes = [
     {path: "/register", component: Register},
     {path: "/personal", component: Personal},
     {path: "/edit_profile", component: EditProfile},
-    { path: "/user_follow", component: UserFollow },
-    { path: "/user_comment", component: UserComment },
-    { path: "/", component: Index }
+    {path: "/user_follow", component: UserFollow },
+    {path: "/user_comment", component: UserComment},
+    {path: "/", component: Index},
+    {path: "/post_detail/:id", component: PostDetail},
 ]
 
 // 路由：3.创建对象
@@ -97,6 +100,7 @@ new Vue({
     // 指定一个组件渲染根实例，这个组件可以成为最底层的组件
     render(createElement) {
         // render函数使用固定的写法，只有App是可变；
+        // 在webpack中，如果想要通过vue把一个组件放到页面中去展示，render函数可以实现
         return createElement(App);
     }
 })
