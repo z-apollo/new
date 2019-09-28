@@ -52,6 +52,7 @@ export default {
         padding: 0 10px;
         box-sizing: border-box;
         border-top: 1px solid #ccc;
+        background-color: #fff;
     }
     .footer{
         display: flex;

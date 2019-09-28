@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <!-- 文章的详情页的内容 -->
     <div class="article">
       <div class="header">
@@ -8,18 +8,15 @@
           <span class="iconfont iconnew"></span>
         </div>
 
-        <span class="focus">关注</span>
+        <span class="focus" v-if="!detail.has_follow">关注</span>
+        <span class="focus focus_active" v-else>已关注</span>
       </div>
 
-      <h3>文章的详情页的内容</h3>
+      <h3>{{detail.title}}</h3>
 
-      <p class="post-info">火星时报 2019-10-10</p>
+      <p class="post-info">{{detail.user.nickname}} 2019-10-10</p>
 
-      <div class="post-content">
-        010101010101010101010
-        010101010101010101010
-        010101010101010101010
-      </div>
+      <div class="post-content" v-html="detail.content">123</div>
     </div>
 
     <div class="post-btns">
@@ -41,14 +38,38 @@
 //导入页脚组件
 import PostFooter from "@/components/PostFooter"
 export default {
+    data(){
+        return{
+            //文章的详情
+            detail: {}
+        }
+    },
+
     components: {
         PostFooter
+    },
+
+    mounted(){
+        //请求文章的详情
+        const {id} = this.$route.params;
+
+        this.$axios({
+            url:"/post/" + id
+        }).then(res =>{
+            const{data} =res.data;
+            //保存到详情
+            this.detail = data;
+            console.log(this.detail);
+        })
     }
 };
 
 </script>
 
 <style scoped lang="less">
+.container{
+    padding-bottom: 100 / 360 * 100vw;
+}
 .article {
   padding: 0 10px;
   .header {
@@ -74,6 +95,11 @@ export default {
       color: #fff;
       border-radius: 100px;
     }
+    .focus_active{
+      border: 1px #ccc solid;
+      color: #333;
+      background-color: none;
+    }
   }
   h3 {
     margin-bottom: 5px;
@@ -85,6 +111,9 @@ export default {
   }
   .post-content {
     line-height: 1.5;
+    /deep/ img{
+        max-width: 100%;
+    }
   }
 }
 .post-btns {
