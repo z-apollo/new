@@ -8,7 +8,7 @@
           <span class="iconfont iconnew"></span>
         </div>
 
-        <span class="focus" v-if="!detail.has_follow">关注</span>
+        <span class="focus" v-if="!detail.has_follow" @click="handleFollow">关注</span>
         <span class="focus focus_active" v-else>已关注</span>
       </div>
 
@@ -41,7 +41,10 @@ export default {
     data(){
         return{
             //文章的详情
-            detail: {}
+            detail: {
+                // user需要在模板中渲染，不然页面会报错 
+                user: {}
+            }
         }
     },
 
@@ -49,13 +52,45 @@ export default {
         PostFooter
     },
 
+    methods:{
+        //关注当前的作者
+        handleFollow(){
+            //通过作者id关注作者
+            this.$axios({
+                url:"/user_follows/" + this.detail.user.id,
+                //添加头信息
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            }).then(res =>{
+                const {message} =res.data;
+
+                if(message === "关注成功"){
+                    //修改关注的按钮的状态
+                    this.detail.has_follow = true;
+                    this.$toast.success(message)
+                }
+            })
+        }
+    },
+
     mounted(){
         //请求文章的详情
         const {id} = this.$route.params;
-
-        this.$axios({
+        //token
+        const token = localStorage.getItem("token");
+        //请求的配置
+        const config = {
             url:"/post/" + id
-        }).then(res =>{
+        }
+        //如果有token就带上，才可能获取到是否关注，是否收藏的属性
+        if(token){
+            config.headers = {
+                 Authorization: token
+            }
+        }
+
+        this.$axios(config).then(res =>{
             const{data} =res.data;
             //保存到详情
             this.detail = data;
@@ -98,7 +133,7 @@ export default {
     .focus_active{
       border: 1px #ccc solid;
       color: #333;
-      background-color: none;
+      background: none;
     }
   }
   h3 {
