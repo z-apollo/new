@@ -32,11 +32,20 @@
         微信
       </span>
     </div>
+    <!-- 页脚组件 -->
+    <PostFooter/>
   </div>
 </template>
 
 <script>
-export default {};
+//导入页脚组件
+import PostFooter from "@/components/PostFooter"
+export default {
+    components: {
+        PostFooter
+    }
+};
+
 </script>
 
 <style scoped lang="less">
