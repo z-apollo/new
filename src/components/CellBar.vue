@@ -11,8 +11,8 @@
 
 <script>
 export default {
-    // label是左侧的文件，text是右侧的文字
-    props:["label","text", "type"]
+  // label是左侧的文件，text是右侧的文字
+  props: ["label", "text", "type"]
 };
 </script>
 

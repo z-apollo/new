@@ -47,7 +47,7 @@
       </span>
       <span>
         <i class="iconfont iconweixin"></i>
-        微信
+        <a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#1">微信</a>
       </span>
     </div>
     <!-- 页脚组件 -->
@@ -297,6 +297,9 @@ export default {
     font-size: 12px;
     border: 1px #ddd solid;
     border-radius: 50px;
+    *{
+      vertical-align: middle;
+    }
   }
   .iconweixin {
     color: #07c907;

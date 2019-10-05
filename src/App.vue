@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style>
-/* 子图图标 */
+/* 子体图标 */
 @import url('http://at.alicdn.com/t/font_1426139_h6vn3jbl5q.css');
 /* vant */
 @import url("../node_modules/vant/lib/index.css");
