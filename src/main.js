@@ -18,6 +18,7 @@ import UserFollow from "@/pages/UserFollow";
 import UserComment from "@/pages/UserComment";
 import Index from "@/pages/Index";
 import PostDetail from "@/pages/PostDetail";
+import Search from "@/pages/Search";
 
 
 // 在.vue文件中要使用router-link或者router-view.需要注册下插件
@@ -39,6 +40,7 @@ const routes = [
     {path: "/user_comment", component: UserComment},
     {path: "/", component: Index},
     {path: "/post_detail/:id", component: PostDetail},
+    {path: "/search", component: Search},
 ]
 
 // 路由：3.创建对象
