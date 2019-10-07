@@ -33,7 +33,7 @@
           :immediate-check="false"
         >
           <!-- 文章模块组件，post是单篇文章详情 -->
-          <PostCard v-for="(item, index) in item.posts" :key="index" :post="item"/>
+          <PostCard v-for="(item, index) in item.posts" :key="index" :post="item" />
         </van-list>
       </van-tab>
     </van-tabs>
@@ -107,7 +107,7 @@ export default {
         // }, 3000)
         const category = this.categories[this.active];
         console.log(category);
-        console.log('active:' + this.active);
+        console.log("active:" + this.active);
         // 请求文章列表
         this.$axios({
           url: `/post?category=${this.cid}
@@ -158,7 +158,7 @@ export default {
 
       //保存栏目列表
       this.categories = newData;
-          // console.log(this.categories)
+      // console.log(this.categories)
       // })
 
       // //请求文章列表

@@ -115,7 +115,7 @@ export default {
 
     //点赞
     handleLike() {
-      //通过作者id关注用户
+      //通过文章id点赞
       this.$axios({
         url: "/post_like/" + this.detail.id,
         // 添加头信息
@@ -125,12 +125,12 @@ export default {
       }).then(res => {
         const { message } = res.data;
         if (message === "点赞成功") {
-          // 修改关注的按钮的状态
+          //修改点赞的按钮的状态
           this.detail.has_like = true;
           this.detail.like_length++;
         }
         if (message === "取消成功") {
-          // 修改关注的按钮的状态
+          //修改点赞的按钮的状态
           this.detail.has_like = false;
           this.detail.like_length--;
         }
@@ -140,7 +140,7 @@ export default {
     },
     //收藏
     handleStar() {
-      // 通过作者id关注用户
+      // 通过文章id收藏
       this.$axios({
         url: "/post_star/" + this.detail.id,
         // 添加头信息
@@ -150,11 +150,11 @@ export default {
       }).then(res => {
         const { message } = res.data;
         if (message === "收藏成功") {
-          // 修改关注的按钮的状态
+          // 修改收藏的按钮的状态
           this.detail.has_star = true;
         }
         if (message === "取消成功") {
-          // 修改关注的按钮的状态
+          // 修改收藏的按钮的状态
           this.detail.has_star = false;
         }
 
